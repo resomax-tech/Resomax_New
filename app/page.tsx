@@ -2,73 +2,52 @@
 
 import { useEffect, useRef } from "react";
 import gsap from "gsap";
+import FracturedSphere from "./components/3d/FracturedSphere";
+import SoftSphere from "./components/3d/SoftSphere";
+import DiamondSphere from "./components/3d/DiamondSphere";
 
 export default function Home() {
-  const resoRef = useRef<HTMLHeadingElement>(null);
-  const maxRef = useRef<HTMLHeadingElement>(null);
-  const subtitleRef = useRef<HTMLParagraphElement>(null);
+  const titleRef = useRef(null);
+  const subtitleRef = useRef(null);
+  const topRef = useRef(null);
+  const bottomRef = useRef(null);
 
   useEffect(() => {
-    const tl = gsap.timeline({ defaults: { ease: "power3.out" } });
+    const tl = gsap.timeline({ delay: 1.5 });
 
-    tl.fromTo(
-      resoRef.current,
-      { opacity: 0, y: 40 },
-      { opacity: 1, y: 0, duration: 1 }
-    )
-      .fromTo(
-        maxRef.current,
-        { opacity: 0, y: 40 },
-        { opacity: 1, y: 0, duration: 1 },
-        "-=0.5" // overlaps animation
-      )
-      .fromTo(
-        subtitleRef.current,
-        { opacity: 0, y: 20 },
-        { opacity: 1, y: 0, duration: 0.8 },
-        "-=0.3"
-      );
+    tl.fromTo(titleRef.current, { opacity: 0, y: 20 }, { opacity: 1, y: 0, duration: 1 })
+      .fromTo(subtitleRef.current, { opacity: 0 }, { opacity: 0.7, duration: 1 }, "-=0.6")
+      .fromTo(topRef.current, { opacity: 0 }, { opacity: 0.8, duration: 1 }, "-=0.8")
+      .fromTo(bottomRef.current, { opacity: 0 }, { opacity: 0.8, duration: 1 }, "-=0.8");
   }, []);
 
   return (
-    <main className="relative w-full h-screen flex flex-col items-center justify-center bg-black text-white overflow-hidden">
-      
-      {/* MAIN HERO TEXT */}
-      <div className="flex flex-col items-center leading-[0.9] text-center">
-        
-        <h1
-          ref={resoRef}
-          className="
-            font-bold uppercase 
-            text-[18vw] md:text-[12vw] lg:text-[8vw]
-          "
-        >
-          RESO
-        </h1>
+    <main className="relative w-full h-screen bg-black text-white flex items-center justify-center overflow-hidden">
+       {/* <FracturedSphere/> */}
+        {/* <SoftSphere /> */}
 
-        <h1
-          ref={maxRef}
-          className="
-            font-bold uppercase 
-            text-[18vw] md:text-[12vw] lg:text-[8vw]
-          "
-        >
-          MAX
-        </h1>
-      </div>
+      {/* Top small text */}
+      <p ref={topRef} className="absolute top-10 opacity-0 tracking-[0.2em] text-sm">
+        VIEW ALL PROJECTS
+      </p>
 
-      {/* SUBTITLE */}
-      <p
-        ref={subtitleRef}
-        className="mt-6 text-sm md:text-lg tracking-widest opacity-80"
+      {/* Main title */}
+      {/* <h1
+        ref={titleRef}
+        className="absolute text-5xl md:text-7xl font-bold tracking-tight opacity-0"
       >
+        RESO MAX
+      </h1> */}
+
+      {/* Subtitle */}
+      <p ref={subtitleRef} className="absolute bottom-[28%] text-sm opacity-0 tracking-[0.25em]">
         Branding • Advertising • Marketing
       </p>
 
-      {/* SCROLL INDICATOR */}
-      <div className="absolute bottom-10 text-xs md:text-sm opacity-50 animate-pulse tracking-widest">
+      {/* Bottom hint */}
+      <p ref={bottomRef} className="absolute bottom-10 text-xs opacity-0 tracking-[0.2em]">
         SCROLL ↓
-      </div>
+      </p>
     </main>
   );
 }
