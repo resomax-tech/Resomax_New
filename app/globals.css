@@ -31,8 +31,220 @@ h1, p, button, div[ref] {
 }
 
 /* optional – control large text responsiveness */
-h1 { font-weight: 700; }
 
 /* small tweak for body if needed */
 body { background: #000; color: #fff; }
 
+:root {
+  --font-hero: var(--font-cormorant);
+  /* --font-heading: var(--font-playfair); */
+  --font-body: var(--font-manrope);
+}
+
+/* Body text */
+body {
+  font-family: var(--font-body);
+  font-weight: 400;
+  line-height: 1.65;
+}
+
+/* Hero / brand */
+.hero-title {
+  font-family: var(--font-hero);
+  font-weight: 300;
+  letter-spacing: 0.02em;
+}
+
+/* Section headings */
+h2, h3 {
+  font-family: var(--font-hero);
+  font-weight: 400;
+}
+@import "tailwindcss";
+
+/* FONT SYSTEM */
+body {
+  font-family: var(--font-manrope);
+}
+
+/* -------- GLASS NAV CONTAINER -------- */
+.glass-nav {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 3.5rem;
+
+  padding: 2.5rem 3.5rem;
+  border-radius: 999px;
+
+  background: rgba(255, 255, 255, 0.06);
+  backdrop-filter: blur(26px);
+  -webkit-backdrop-filter: blur(26px);
+
+  border: 1px solid rgba(131, 101, 101, 0.12);
+}
+
+/* -------- NAV ITEMS -------- */
+.nav-item {
+  font-family: var(--font-cormorant);
+  font-weight: 300;
+
+  font-size: 2.4rem;
+  letter-spacing: 0.1em;
+
+  color: rgba(255, 255, 255, 0.9);
+  background: transparent;
+  border: none;
+  cursor: pointer;
+
+  transition:
+    opacity 0.6s ease,
+    letter-spacing 0.6s ease;
+}
+
+.nav-item:hover {
+  opacity: 1;
+  letter-spacing: 0.16em;
+}
+
+.fluid-nav {
+  will-change: transform;
+}
+
+/* -------- MOBILE -------- */
+@media (max-width: 768px) {
+  .glass-nav {
+    flex-direction: column;
+    gap: 1.8rem;
+    padding: 2.2rem;
+    border-radius: 28px;
+  }
+
+  .nav-item {
+    font-size: 1.6rem;
+    letter-spacing: 0.14em;
+  }
+}
+@media (max-width: 768px) {
+  .glass-nav {
+    flex-direction: column;
+    gap: 1.8rem;
+  }
+}
+/* ---------- STACK LAYOUT ---------- */
+.glass-stack {
+  display: flex;
+  gap: 2.8rem;
+  align-items: center;
+  justify-content: center;
+}
+
+/* ---------- INDIVIDUAL GLASS ITEM ---------- */
+/* ---------- STACK ---------- */
+.glass-stack {
+  display: flex;
+  gap: 2rem;   /* ⬅ reduced from 2.8rem */
+  align-items: center;
+  justify-content: center;
+}
+
+
+/* ---------- GLASS BUTTON ---------- */
+.glass-item {
+  position: relative;
+  padding: 1.8rem 2.6rem;   /* ⬅ reduced */
+  border-radius: 999px;
+
+  background: rgba(255, 255, 255, 0.05);
+  backdrop-filter: blur(28px);
+  -webkit-backdrop-filter: blur(28px);
+
+  border: 1px solid rgba(255, 255, 255, 0.14);
+  cursor: pointer;
+  overflow: hidden;
+
+  transition:
+  filter 0.6s ease,
+  box-shadow 0.6s ease,
+  transform 0.6s ease;
+
+}
+
+/* ---------- DIMMED STATE ---------- */
+.glass-dimmed {
+  opacity: 0.35;
+  filter: saturate(0.7);
+}
+
+/* ---------- INNER GRAPHIC ---------- */
+.glass-graphic {
+  position: absolute;
+  inset: -40%;
+  background: radial-gradient(
+    circle at center,
+    rgba(255, 255, 255, 0.18),
+    transparent 60%
+  );
+  opacity: 0.35;
+  pointer-events: none;
+}
+
+
+/* ---------- TEXT ---------- */
+.glass-text {
+  position: relative;
+  z-index: 2;
+
+  font-family: var(--font-cormorant);
+  font-weight: 300;
+
+  font-size: clamp(1.4rem, 3vw, 2rem); /* ⬅ reduced */
+  letter-spacing: 0.14em;
+  color: rgba(255, 255, 255, 0.92);
+}
+
+/* ---------- MOBILE ---------- */
+@media (max-width: 768px) {
+  .glass-stack {
+    flex-direction: column;
+    gap: 1.4rem;  /* ⬅ tighter */
+  }
+
+  .glass-item {
+    padding: 1.6rem 2.2rem; /* ⬅ smaller */
+    border-radius: 22px;
+  }
+
+  .glass-text {
+    font-size: 1.25rem;
+    letter-spacing: 0.16em;
+  }
+}
+
+@keyframes gearSpin {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+.animate-gear-spin {
+  animation: gearSpin 22s linear infinite;
+}
+
+
+
+/* body::after {
+  content: "";
+  position: fixed;
+  inset: 0;
+  background: radial-gradient(
+    circle at center,
+    rgba(0,0,0,0) 0%,
+    rgba(0,0,0,0.75) 70%
+  );
+  pointer-events: none;
+  z-index: 15;
+} */
