@@ -1,59 +1,90 @@
 "use client";
 
-import { useEffect, useRef } from "react";
-import gsap from "gsap";
-import FracturedSphere from "@/app/components/backgrounds/FracturedSphere";
-// import LineBackground from "@/app/components/animations/LineBackground";
+import React from "react";
+import { motion, type Variants } from "framer-motion";
+import { useRouter } from "next/navigation";
+
+/* ------------------ MOTION VARIANTS ------------------ */
+
+const containerVariants: Variants = {
+  hidden: {},
+  visible: {
+    transition: {
+      staggerChildren: 0.1,
+    },
+  },
+};
+
+const fadeUp: Variants = {
+  hidden: {
+    y: 28,
+    opacity: 0,
+  },
+  visible: {
+    y: 0,
+    opacity: 1,
+    transition: {
+      duration: 0.7,
+      ease: [0.22, 1, 0.36, 1],
+    },
+  },
+};
+
+/* ------------------ PAGE ------------------ */
 
 export default function ContactPage() {
-  const contentRef = useRef<HTMLDivElement | null>(null);
-
-  useEffect(() => {
-    if (!contentRef.current) return;
-
-    gsap.fromTo(
-      contentRef.current.children,
-      { y: 40, opacity: 0 },
-      {
-        y: 0,
-        opacity: 1,
-        duration: 1.2,
-        stagger: 0.12,
-        ease: "power3.out",
-      }
-    );
-  }, []);
+  const router = useRouter(); // ✅ FIX
 
   return (
     <main className="relative min-h-screen bg-black text-white">
-      {/* SAME BACKGROUND AS ABOUT */}
-      {/* <LineBackground /> */}
-      <div className="fixed inset-0 z-0 pointer-events-none">
-              <FracturedSphere />
-            </div>
+      {/* ❌ CLOSE BUTTON */}
+      <button
+        onClick={() => router.push("/")}
+        aria-label="Close contact page"
+        className="
+          fixed top-6 right-6 z-50
+          w-11 h-11 rounded-full
+          border border-white/40
+          flex items-center justify-center
+          text-white/80 text-xl
+          hover:border-[#FFAA17] hover:text-[#FFAA17]
+          transition
+        "
+      >
+        ✕
+      </button>
 
-      <section className="relative z-10 pt-44 pb-32">
-        <div
-          ref={contentRef}
-          className="mx-auto max-w-6xl px-6 md:px-12 space-y-24"
+      <section className="relative z-10 pt-32 pb-24">
+        <motion.div
+          variants={containerVariants}
+          initial="hidden"
+          animate="visible"
+          className="mx-auto max-w-6xl px-6 md:px-12 space-y-16"
         >
           {/* HEADER */}
-          <div className="grid md:grid-cols-2 gap-8">
-            <h1 className="text-lg text-white/80 font-light">
+          <motion.div
+            variants={fadeUp}
+            className="grid md:grid-cols-2 gap-6"
+          >
+            <h1 className="text-4xl text-[#FFAA17] font-light">
               Contact
             </h1>
-            <p className="text-2xl md:text-3xl font-light leading-relaxed text-white/85">
+
+            <p className="text-xl md:text-2xl font-light leading-relaxed text-white/85">
               Let’s talk about ideas, collaborations, or new opportunities.
               Tell us what you’re building — we’ll take it from there.
             </p>
-          </div>
+          </motion.div>
 
           {/* CONTENT */}
-          <div className="grid md:grid-cols-2 gap-20">
+          <div className="grid md:grid-cols-2 gap-14">
             {/* DETAILS */}
-            <div className="space-y-12">
+            <motion.div
+              variants={fadeUp}
+              className="space-y-8"
+            >
               <div>
-                <p className="text-sm uppercase tracking-wider text-white/50 mb-2">
+                <p className="text-sm uppercase tracking-wider text-[#FFAA17] mb-1">
                   Email
                 </p>
                 <p className="text-lg text-white/80">
@@ -62,7 +93,7 @@ export default function ContactPage() {
               </div>
 
               <div>
-                <p className="text-sm uppercase tracking-wider text-white/50 mb-2">
+                <p className="text-sm uppercase tracking-wider text-[#FFAA17] mb-1">
                   Phone
                 </p>
                 <p className="text-lg text-white/80">
@@ -71,84 +102,110 @@ export default function ContactPage() {
               </div>
 
               <div>
-                <p className="text-sm uppercase tracking-wider text-white/50 mb-2">
+                <p className="text-sm uppercase tracking-wider text-[#FFAA17] mb-1">
                   Location
                 </p>
                 <p className="text-lg text-white/80">
                   Hyderabad, India
                 </p>
               </div>
-            </div>
+            </motion.div>
 
             {/* FORM */}
-            <form
-              className="space-y-10"
-              onSubmit={(e) => e.preventDefault()}
+            <motion.div
+              variants={fadeUp}
+              className="space-y-8"
             >
-              {["Name", "Email"].map((label) => (
-                <div key={label} className="space-y-2">
-                  <label className="text-sm text-white/60">
-                    {label}
+              <form
+                onSubmit={(e: React.FormEvent<HTMLFormElement>) =>
+                  e.preventDefault()
+                }
+                className="space-y-8"
+              >
+                {/* NAME */}
+                <div className="space-y-1">
+                  <label
+                    htmlFor="name"
+                    className="text-sm text-[#FFAA17]"
+                  >
+                    Name
                   </label>
                   <input
-                    type={label === "Email" ? "email" : "text"}
+                    id="name"
+                    name="name"
+                    type="text"
                     required
                     className="
-                      w-full
-                      bg-transparent
+                      w-full bg-transparent
                       border-b border-white/30
-                      py-3
-                      text-lg
-                      text-white
-                      outline-none
-                      focus:border-white
-                      transition
+                      py-2.5 text-lg text-white
+                      outline-none focus:border-white transition
                     "
                   />
                 </div>
-              ))}
 
-              <div className="space-y-2">
-                <label className="text-sm text-white/60">
-                  Message
-                </label>
-                <textarea
-                  rows={4}
-                  required
-                  className="
-                    w-full
-                    bg-transparent
-                    border-b border-white/30
-                    py-3
-                    text-lg
-                    text-white
-                    outline-none
-                    resize-none
-                    focus:border-white
-                    transition
-                  "
-                />
-              </div>
+                {/* EMAIL */}
+                <div className="space-y-1">
+                  <label
+                    htmlFor="email"
+                    className="text-sm text-[#FFAA17]"
+                  >
+                    Email
+                  </label>
+                  <input
+                    id="email"
+                    name="email"
+                    type="email"
+                    required
+                    className="
+                      w-full bg-transparent
+                      border-b border-white/30
+                      py-2.5 text-lg text-white
+                      outline-none focus:border-white transition
+                    "
+                  />
+                </div>
 
-              <div className="pt-6">
-                <button
-                  type="submit"
-                  className="
-                    text-lg
-                    font-light
-                    text-white
-                    border-b border-white
-                    pb-1
-                    hover:opacity-70
-                    transition
-                  "
-                >
-                  Send message →
-                </button>
-              </div>
-            </form>
+                {/* MESSAGE */}
+                <div className="space-y-1">
+                  <label
+                    htmlFor="message"
+                    className="text-sm text-[#FFAA17]"
+                  >
+                    Message
+                  </label>
+                  <textarea
+                    id="message"
+                    name="message"
+                    rows={3}
+                    required
+                    className="
+                      w-full bg-transparent
+                      border-b border-white/30
+                      py-2.5 text-lg text-white
+                      outline-none resize-none
+                      focus:border-white transition
+                    "
+                  />
+                </div>
+
+                {/* SUBMIT */}
+                <div className="pt-4">
+                  <button
+                    type="submit"
+                    className="
+                      text-lg font-light text-[#FFAA17]
+                      border-b border-white pb-1
+                      hover:opacity-70 transition
+                    "
+                  >
+                    Send message →
+                  </button>
+                </div>
+              </form>
+            </motion.div>
           </div>
-        </div>
+        </motion.div>
       </section>
     </main>
   );

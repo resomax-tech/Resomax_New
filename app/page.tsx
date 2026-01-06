@@ -1,17 +1,23 @@
 "use client";
 
-import BulbWithGear from "@/app/components/scene/BulbWithGear";
+import Logo from "@/app/components/Logo";
+import HamburgerMenu from "@/app/components/HamburgerMenu";
+import HomeHero from "@/app/components/HomeHero";
+import BulbGearScene from "@/app/components/BulbGearScene";
+import { usePathname } from "next/navigation";
 
-export default function Home() {
+
+export default function HomePage() {
+    const pathname = usePathname();
+
   return (
-    <main className="relative w-full h-screen bg-black overflow-hidden">
-      {/* BULB BACKGROUND - allow pointer events so the bulb can react to the cursor */}
-      <div className="absolute inset-0 z-0">
-        <BulbWithGear />
-      </div>
+    <>
+      <Logo />
+      <HamburgerMenu />
+      <HomeHero key={pathname}/>
 
-      {/* UI CONTENT */}
-      {/* Add your UI here, which will appear above the bulb */}
-    </main>
+    </>
   );
 }
+
+

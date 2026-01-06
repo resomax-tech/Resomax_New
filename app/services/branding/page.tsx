@@ -1,66 +1,234 @@
 "use client";
 
-import { useEffect, useRef } from "react";
+import { useEffect, useRef, useState } from "react";
+import { useRouter } from "next/navigation";
 import gsap from "gsap";
-// import LineBackground from "@/app/components/animations/LineBackground";
-import FracturedSphere from "@/app/components/backgrounds/FracturedSphere";
+import { ScrollTrigger } from "gsap/ScrollTrigger";
+import { motion } from "framer-motion";
 
+gsap.registerPlugin(ScrollTrigger);
+
+type Item = {
+  title: string;
+  desc: string;
+  image: string;
+};
+
+const ITEMS: Item[] = [
+  {
+    title: "Brand Strategy",
+    desc: "Defining vision, purpose, audience, and competitive positioning.",
+    image: "/branding/strategy.jpg",
+  },
+  {
+    title: "Brand Identity Development",
+    desc: "Creating visual and verbal systems that express the brand clearly.",
+    image: "/branding/development.jpg",
+  },
+  {
+    title: "Brand Positioning",
+    desc: "Establishing a meaningful and differentiated place in the market.",
+    image: "/branding/positioning.jpg",
+  },
+  {
+    title: "Verbal Identity & Messaging",
+    desc: "Shaping perception and creating long-term brand value.",
+    image: "/branding/messaging.jpg",
+  },
+  {
+    title: "Visual Identity & Design",
+    desc: "Designing logos, typography, color systems, and brand assets.",
+    image: "/branding/strategy.jpg",
+  },
+  {
+    title: "Brand Guidelines",
+    desc: "Ensuring consistency across every brand touchpoint.",
+    image: "/branding/guidlines.jpg",
+  },
+  {
+    title: "Brand Experience",
+    desc: "Designing meaningful interactions across channels.",
+    image: "/branding/experience.jpg",
+  },
+  {
+    title: "Brand Equity Building",
+    desc: "Building trust, recognition, and long-term value.",
+    image: "/branding/strategy.jpg",
+  },
+];
 
 export default function BrandingPage() {
-  const textRef = useRef<HTMLDivElement | null>(null);
+  const router = useRouter();
+  const containerRef = useRef<HTMLDivElement>(null);
+  const slidesRef = useRef<HTMLDivElement>(null);
 
+  /* ---------------- GSAP ---------------- */
   useEffect(() => {
-    if (!textRef.current) return;
+    if (!containerRef.current || !slidesRef.current) return;
 
-    gsap.fromTo(
-      textRef.current.children,
-      { y: 40, opacity: 0 },
-      {
-        y: 0,
-        opacity: 1,
-        stagger: 0.15,
-        duration: 1.2,
-        ease: "power3.out",
-      }
+    const slides = gsap.utils.toArray<HTMLElement>(
+      slidesRef.current.children
     );
+
+    slides.forEach((slide, i) => {
+      const text = slide.querySelector(".slide-text");
+      const image = slide.querySelector(".slide-image");
+
+      gsap.set(slide, { autoAlpha: i === 0 ? 1 : 0 });
+      gsap.set(text, { y: 40, opacity: i === 0 ? 1 : 0 });
+      gsap.set(image, { scale: 1.05, opacity: i === 0 ? 1 : 0 });
+    });
+
+    const tl = gsap.timeline({
+      scrollTrigger: {
+        trigger: containerRef.current,
+        start: "top top",
+        end: `+=${slides.length * 120}%`,
+        scrub: 1,
+        pin: true,
+        anticipatePin: 1,
+      },
+    });
+
+    slides.forEach((slide, i) => {
+      if (i === 0) return;
+
+      const prev = slides[i - 1];
+      const prevText = prev.querySelector(".slide-text");
+      const prevImage = prev.querySelector(".slide-image");
+
+      const nextText = slide.querySelector(".slide-text");
+      const nextImage = slide.querySelector(".slide-image");
+
+      tl.to(prevText, { y: -40, opacity: 0, duration: 0.4 })
+        .to(prevImage, { opacity: 0, scale: 0.98, duration: 0.4 }, "<")
+        .set(prev, { autoAlpha: 0 })
+        .set(slide, { autoAlpha: 1 })
+        .fromTo(nextText, { y: 40, opacity: 0 }, { y: 0, opacity: 1 })
+        .fromTo(
+          nextImage,
+          { scale: 1.05, opacity: 0 },
+          { scale: 1, opacity: 1 },
+          "<"
+        );
+    });
+
+    return () => {
+      tl.kill();
+      ScrollTrigger.getAll().forEach((t) => t.kill());
+    };
   }, []);
 
+  /* ---------------- UI ---------------- */
   return (
-    <main className="relative min-h-screen bg-black text-white">
-      <div className="fixed inset-0 z-0 pointer-events-none">
-              <FracturedSphere />
-            </div>
+    <main className="relative bg-black text-white overflow-hidden">
 
-      <section className="relative z-10 px-6 md:px-24 py-32">
-        <div ref={textRef} className="max-w-6xl space-y-20">
+      {/* ================= HERO ================= */}
+      <section className="relative h-[55vh] md:h-[50vh] flex items-center justify-center">
+        <div
+          className="absolute inset-0 bg-cover bg-center"
+          style={{ backgroundImage: "url('/branding-hero.jpg')" }}
+        />
+        <div className="absolute inset-0 bg-black/70" />
 
-          <div className="grid md:grid-cols-2 gap-10">
-            <h1 className="text-xl text-white/80">Branding</h1>
-            <p className="text-2xl font-light text-white/85 leading-relaxed">
-              We build brands with clarity, purpose, and long-term value.
-              Our branding work creates strong foundations that help
-              businesses stand out and stay relevant.
-            </p>
-          </div>
+        <motion.h1
+          initial={{ opacity: 0, y: 30 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 1 }}
+          className="relative z-10 text-4xl md:text-6xl font-light text-[#FFAA17]"
+        >
+          Branding
+        </motion.h1>
+      </section>
 
-          {[
-            ["Brand Strategy", "Defining brand vision, purpose, audience, and competitive positioning."],
-            ["Brand Identity Development", "Creating visual and verbal systems that express the brand clearly and consistently."],
-            ["Brand Positioning", "Establishing a distinct and meaningful place for the brand in the market."],
-            ["Verbal Identity & Messaging", "Crafting tone of voice, messaging frameworks, and narratives."],
-            ["Visual Identity & Design", "Designing logos, typography, color systems, and brand assets."],
-            ["Brand Guidelines", "Documenting brand rules to ensure consistency across all touchpoints."],
-            ["Brand Experience", "Designing how people experience the brand across digital and physical channels."],
-            ["Brand Equity Building", "Strengthening trust, recognition, and long-term brand value."],
-          ].map(([title, desc], i) => (
-            <div key={i} className="grid md:grid-cols-2 gap-10">
-              <h3 className="text-lg text-white/70">{title}</h3>
-              <p className="text-lg text-white/65 leading-relaxed">{desc}</p>
+      {/* ================= SLIDES ================= */}
+      <section
+        ref={containerRef}
+        className="relative h-screen bg-black"
+      >
+        <div
+          ref={slidesRef}
+          className="relative h-screen flex items-center justify-center"
+        >
+          {ITEMS.map((item) => (
+            <div
+              key={item.title}   // ✅ FIXED KEY
+              className="
+                absolute
+                w-[90%]
+                max-w-6xl
+                grid
+                grid-cols-1
+                md:grid-cols-2
+                gap-8 md:gap-12
+                items-start md:items-center
+              "
+            >
+              {/* TEXT */}
+              <div className="slide-text relative z-10 pt-6 md:pt-0">
+                <h2 className="text-4xl md:text-6xl font-light text-[#FFAA17]">
+                  {item.title}
+                </h2>
+
+                <p className="mt-4 text-lg max-w-md text-white/80">
+                  {item.desc}
+                </p>
+
+                <button
+                  className="
+                    mt-6
+                    inline-flex
+                    items-center
+                    gap-2
+                    text-sm
+                    uppercase
+                    tracking-wide
+                    text-[#FFAA17]
+                    border-b
+                    border-[#FFAA17]
+                    pb-1
+                    hover:opacity-80
+                    transition
+                  "
+                >
+                  Explore
+                </button>
+              </div>
+
+              {/* IMAGE */}
+              <div
+                className="
+                  slide-image
+                  relative
+                  w-full
+                  h-[240px] sm:h-[300px] md:h-[520px]
+                  overflow-hidden
+                  rounded-2xl
+                "
+              >
+                <img
+                  src={item.image}
+                  alt={item.title}
+                  className="w-full h-full object-cover"
+                />
+              </div>
             </div>
           ))}
-
         </div>
       </section>
+
+      {/* ================= CLOSE ================= */}
+      <button
+        onClick={() => router.push("/")}
+        className="
+          fixed top-6 right-6 z-50
+          w-11 h-11 rounded-full
+          border border-white/40
+          hover:bg-white/10
+        "
+      >
+        ✕
+      </button>
     </main>
   );
 }

@@ -1,39 +1,48 @@
 import './globals.css'
-import { Cormorant_Garamond, Playfair_Display, Manrope } from 'next/font/google'
+// import { Cormorant_Garamond, Playfair_Display, Manrope } from 'next/font/google'
 import IntroController from './components/layouts/IntroController'
+import localFont from "next/font/local";
+import Footer from "./components/layouts/Footer";
 
 
-const cormorant = Cormorant_Garamond({
-  subsets: ['latin'],
-  weight: ['300', '400'],
-  variable: '--font-cormorant',
-  display: 'swap',
-})
 
-const playfair = Playfair_Display({
-  subsets: ['latin'],
-  weight: ['400'],
-  variable: '--font-playfair',
-  display: 'swap',
-})
 
-const manrope = Manrope({
-  subsets: ['latin'],
-  weight: ['400', '500'],
-  variable: '--font-manrope',
-  display: 'swap',
-})
+const neueHaas = localFont({
+  src: [
+    {
+      path: "./fonts/NeueHaasDisplay-Thin.woff2",
+      weight: "300",
+      style: "normal",
+    },
+    {
+      path: "./fonts/NeueHaasDisplay-Light.woff2",
+      weight: "400",
+      style: "normal",
+    },
+    {
+      path: "./fonts/NeueHaasDisplay-Mediu.woff2",
+      weight: "500",
+      style: "normal",
+    },
+  ],
+  variable: "--font-neuehaas",
+  display: "swap",
+});
+
+
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {
   return (
     <html
       lang="en"
-      className={`${cormorant.variable} ${playfair.variable} ${manrope.variable}`}
+      suppressHydrationWarning   // 👈 THIS IS THE FIX
+      className={`${neueHaas.variable}`}
     >
-      <body className="bg-black text-white">
-        <IntroController/>
-        
+      <body className={`bg-white text-white`}>
+
+        <IntroController />
         {children}
+        <Footer/>
       </body>
     </html>
   )
