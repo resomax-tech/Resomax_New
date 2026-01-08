@@ -19,15 +19,11 @@ export default function RootLayout({
   children: React.ReactNode;
 }) {
   return (
-    <html
-      lang="en"
-      suppressHydrationWarning
-      className={neueHaas.variable}
-    >
+    <html lang="en" suppressHydrationWarning className={neueHaas.variable}>
       <body className="bg-white text-white">
         <IntroController />
         {children}
-        <FooterWrapper /> {/* 👈 Footer hidden on home */}
+        <FooterWrapper /> {/* ✅ Footer hidden on home */}
       </body>
     </html>
   );

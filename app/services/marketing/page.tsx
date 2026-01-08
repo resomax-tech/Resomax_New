@@ -20,56 +20,56 @@ const STORIES: Story[] = [
   {
     title: "Marketing Strategy",
     subtitle: "Business Development · Scale Up",
-    image: "/marketing/marketing.jpg",
+    image: "/marketing/marketing.webp",
     content:
       "We helped businesses scale through performance marketing, audience segmentation, and channel optimization, delivering sustained growth and measurable ROI.",
   },
   {
     title: "Digital Marketing",
     subtitle: "Brand Growth · Market Expansion",
-    image: "/marketing/digital.jpg",
+    image: "/marketing/digital.webp",
     content:
       "Our digital marketing systems combine SEO, paid acquisition, and conversion optimization to expand reach and accelerate growth.",
   },
   {
     title: "Content Marketing",
     subtitle: "Digital Strategy · Performance",
-    image: "/marketing/content.jpg",
+    image: "/marketing/content.webp",
     content:
       "We create content ecosystems that attract, engage, and retain audiences across platforms.",
   },
   {
     title: "Social Media Management",
     subtitle: "Community · Engagement",
-    image: "/marketing/socialmedia.jpg",
+    image: "/marketing/socialmedia.webp",
     content:
       "We manage brand presence and engagement across social platforms with clarity and consistency.",
   },
   {
     title: "Paid Advertising (PPC & Social Ads)",
     subtitle: "Performance · ROI",
-    image: "/marketing/paid.jpg",
+    image: "/marketing/paid.webp",
     content:
       "Targeted advertising strategies focused on performance, efficiency, and scale.",
   },
   {
     title: "Email Marketing",
     subtitle: "Retention · Growth",
-    image: "/marketing/email.jpg",
+    image: "/marketing/email.webp",
     content:
       "Strategic email communication designed to build long-term customer relationships.",
   },
   {
     title: "SEO & Organic Growth",
     subtitle: "Visibility · Search",
-    image: "/marketing/seo.jpg",
+    image: "/marketing/seo.webp",
     content:
       "Search optimization strategies that improve visibility, traffic, and long-term growth.",
   },
   {
     title: "Analytics & Performance Tracking",
     subtitle: "Insights · Optimization",
-    image: "/marketing/analytics.jpg",
+    image: "/marketing/analytics.webp",
     content:
       "Measuring performance, extracting insights, and continuously optimizing for growth.",
   },

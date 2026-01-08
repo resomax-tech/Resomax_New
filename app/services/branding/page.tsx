@@ -18,42 +18,42 @@ const ITEMS: Item[] = [
   {
     title: "Brand Strategy",
     desc: "Defining vision, purpose, audience, and competitive positioning.",
-    image: "/branding/strategy.jpg",
+    image: "/branding/strategy.webp",
   },
   {
     title: "Brand Identity Development",
     desc: "Creating visual and verbal systems that express the brand clearly.",
-    image: "/branding/development.jpg",
+    image: "/branding/development.webp",
   },
   {
     title: "Brand Positioning",
     desc: "Establishing a meaningful and differentiated place in the market.",
-    image: "/branding/positioning.jpg",
+    image: "/branding/positioning.webp",
   },
   {
     title: "Verbal Identity & Messaging",
     desc: "Shaping perception and creating long-term brand value.",
-    image: "/branding/messaging.jpg",
+    image: "/branding/messaging.webp",
   },
   {
     title: "Visual Identity & Design",
     desc: "Designing logos, typography, color systems, and brand assets.",
-    image: "/branding/strategy.jpg",
+    image: "/branding/strategy.webp",
   },
   {
     title: "Brand Guidelines",
     desc: "Ensuring consistency across every brand touchpoint.",
-    image: "/branding/guidlines.jpg",
+    image: "/branding/guidlines.webp",
   },
   {
     title: "Brand Experience",
     desc: "Designing meaningful interactions across channels.",
-    image: "/branding/experience.jpg",
+    image: "/branding/experience.webp",
   },
   {
     title: "Brand Equity Building",
     desc: "Building trust, recognition, and long-term value.",
-    image: "/branding/strategy.jpg",
+    image: "/branding/strategy.webp",
   },
 ];
 
