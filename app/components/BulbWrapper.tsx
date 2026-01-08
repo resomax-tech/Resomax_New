@@ -9,5 +9,6 @@ const BulbGearScene = dynamic(
 
 export default function BulbWrapper() {
   console.log("BulbWrapper mounted");
-  return <BulbGearScene />;
+
+  return <BulbGearScene interactive={true} />;
 }

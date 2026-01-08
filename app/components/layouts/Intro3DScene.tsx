@@ -3,6 +3,7 @@
 import { useEffect, useRef } from "react";
 import gsap from "gsap";
 
+
 type Props = {
   onLogoCentered: () => void;
   startTexts: boolean;

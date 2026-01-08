@@ -4,6 +4,8 @@ import { useEffect, useRef } from "react";
 import { useRouter } from "next/navigation";
 import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
+import Image from "next/image";
+
 
 gsap.registerPlugin(ScrollTrigger);
 
@@ -175,7 +177,7 @@ export default function MarketingPage() {
                     }`}
                 >
                   <div className="absolute inset-0 rounded-lg overflow-hidden">
-                    <img
+                    <Image
                       src={story.image}
                       alt={story.title}
                       className="w-full h-full object-cover opacity-70"
