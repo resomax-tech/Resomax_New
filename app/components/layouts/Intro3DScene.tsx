@@ -55,19 +55,19 @@ export default function Intro3DScene({
       {/* LOGO */}
       <img
         ref={logoRef}
-        src="/logo.png"
+        src="/logo2.png"
         alt="ResoMax Logo"
-        className="w-24 mb-10 opacity-0"
+        className="w-80 h-15 mb-10 opacity-0"
       />
 
       {/* TEXT */}
-      <h1
+      {/* <h1   
         ref={resoRef}
         className="opacity-0 text-5xl md:text-6xl tracking-wide text-white"
         style={{ fontFamily: "var(--font-playfair)" }}
       >
         RESOMAX
-      </h1>
+      </h1> */}
 
       <h2
         ref={techRef}

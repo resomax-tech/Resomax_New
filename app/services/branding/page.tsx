@@ -166,9 +166,20 @@ export default function BrandingPage() {
             >
               {/* TEXT */}
               <div className="slide-text relative z-10 pt-6 md:pt-0">
-                <h2 className="text-4xl md:text-6xl font-light text-[#FFAA17]">
+                <h2 className="
+  text-4xl md:text-6xl font-light text-[#FFAA17]
+  inline-block
+  px-5 py-3
+  rounded-2xl
+  bg-white/15
+  backdrop-blur-md
+  [mask-image:radial-gradient(circle,black_60%,transparent_100%)]
+">
                   {item.title}
                 </h2>
+
+
+
 
                 <p className="mt-4 text-lg max-w-md text-white/80">
                   {item.desc}

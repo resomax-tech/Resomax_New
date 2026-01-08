@@ -8,8 +8,7 @@ const MENU_ITEMS = [
   { label: "Home", path: "/" },
   { label: "Services", path: "/" },
   { label: "About", path: "/about" },
-    { label: "Contact", path: "/contact" },
-
+  { label: "Contact", path: "/contact" },
 ];
 
 export default function HamburgerMenu() {
@@ -19,33 +18,35 @@ export default function HamburgerMenu() {
   const toggle = () => {
     setOpen((prev) => !prev);
 
-    gsap.fromTo(
-      ".menu-item",
-      { y: 20, opacity: 0 },
-      {
-        y: 0,
-        opacity: 1,
-        stagger: 0.15,
-        duration: 0.6,
-        ease: "power3.out",
-      }
-    );
+    if (!open) {
+      gsap.fromTo(
+        ".menu-item",
+        { y: 20, opacity: 0 },
+        {
+          y: 0,
+          opacity: 1,
+          stagger: 0.15,
+          duration: 0.6,
+          ease: "power3.out",
+        }
+      );
+    }
   };
 
   const handleNavigate = (path: string) => {
-    setOpen(false); // close menu first
+    setOpen(false);
     router.push(path);
   };
 
   return (
     <>
-      {/* Hamburger */}
+      {/* Toggle Button */}
       <button
-        aria-label="Open menu"
+        aria-label={open ? "Close menu" : "Open menu"}
         onClick={toggle}
-        className="fixed top-6 right-6 z-50 text-white text-2xl"
+        className="fixed top-6 right-6 z-50 text-white text-3xl"
       >
-        ☰
+        {open ? "✕" : "☰"}
       </button>
 
       {/* Menu Overlay */}
@@ -62,7 +63,6 @@ export default function HamburgerMenu() {
                   text-white
                   text-3xl
                   font-light
-                  cursor-pointer
                   hover:text-[#FFAA17]
                   transition
                 "

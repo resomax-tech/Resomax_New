@@ -46,29 +46,37 @@ export default function IntroController() {
       onComplete: () => {
         setOverlayHidden(true);
 
-        // 🔥 IMPORTANT: SIGNAL HOME
-        window.dispatchEvent(new Event("intro:complete"));
-      },
-    });
-  }
+        // 🔥 wait for DOM unmount
+        requestAnimationFrame(() => {
+          requestAnimationFrame(() => {
+            (window as any).__INTRO_DONE__ = true;
+            window.dispatchEvent(new Event("intro:complete"));
+          });
+        });
+      }
 
-  if (overlayHidden) return null;
+    },
+    
+    );
+  } 
 
-  return (
-    <div
-      id="intro-overlay"
-      className="fixed inset-0 bg-black z-[9999]"
-      style={{ opacity: 1 }}
-    >
-      {!curtainDone && <IntroCurtain onComplete={handleCurtainComplete} />}
+if (overlayHidden) return null;
 
-      {start3D && (
-        <Intro3DScene
-          onLogoCentered={handleLogoCentered}
-          startTexts={startTexts}
-          onTextsComplete={handleTextsComplete}
-        />
-      )}
-    </div>
-  );
+return (
+  <div
+    id="intro-overlay"
+    className="fixed inset-0 bg-black z-[9999]"
+    style={{ opacity: 1 }}
+  >
+    {!curtainDone && <IntroCurtain onComplete={handleCurtainComplete} />}
+
+    {start3D && (
+      <Intro3DScene
+        onLogoCentered={handleLogoCentered}
+        startTexts={startTexts}
+        onTextsComplete={handleTextsComplete}
+      />
+    )}
+  </div>
+);
 }
